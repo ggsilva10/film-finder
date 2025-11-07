@@ -1,17 +1,16 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next'
 
-const nextConfig: NextConfig = {
+const config: NextConfig = {
   images: {
-
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'image.tmdb.org',
         port: '',
-        pathname: '/t/p/w500/**'
+        pathname: '/t/p/w500/**', 
       },
     ],
   },
 }
 
-export default nextConfig;
+export default config
