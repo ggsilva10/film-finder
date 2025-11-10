@@ -32,6 +32,7 @@ export const MovieCard = ({ movie }: MovieCardProps) => {
               fill 
               style={{ objectFit: 'cover' }}
               className="transition-opacity duration-300 group-hover:opacity-80"
+              sizes="(max-width: 768px) 50vw, (max-width: 1280px) 25vw, 16vw"
             />
           ) : (
             <div className="w-full h-full bg-zinc-700 flex items-center justify-center">

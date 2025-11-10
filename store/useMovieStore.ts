@@ -4,48 +4,63 @@ import { Movie, TmdbApiResponse } from '@/types';
 interface MovieStoreState {
   searchQuery: string;
   searchResults: Movie[];
+  currentPage: number;
+  totalPages: number;
   setSearchQuery: (query: string) => void;
-  fetchSearchResults: () => Promise<void>;
+  fetchSearchResults: (query: string, loadMore?: boolean) => Promise<void>;
+  resetSearch: () => void;
 }
 
 export const useMovieStore = create<MovieStoreState>((set, get) => ({
   searchQuery: '',
   searchResults: [],
+  currentPage: 1,
+  totalPages: 1,
     
-  /** Ação para atualizar o texto da busca */
   setSearchQuery: (query) => {
     set({ searchQuery: query });
   },
 
-  /** Ação para buscar filmes na API (baseado no searchQuery) */
-  fetchSearchResults: async () => {
-    // 'get()' é como o Zustand lê o estado atual
-    const { searchQuery } = get();
-
-    // Se a busca estiver vazia, limpe os resultados e saia
-    if (!searchQuery) {
-      set({ searchResults: [] });
+  fetchSearchResults: async (query, loadMore = false) => {
+    if (!query) {
+      set({ searchResults: [], currentPage: 1, totalPages: 1 });
       return;
     }
 
+    const { currentPage } = get();
+    const pageToFetch = loadMore ? currentPage + 1 : 1;
+
     const apiKey = process.env.NEXT_PUBLIC_TMDB_API_KEY;
-    // Usamos o endpoint de 'search' em vez de 'popular'
-    const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=pt-BR&query=${encodeURIComponent(searchQuery)}`;
+    const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=pt-BR&query=${encodeURIComponent(query)}&page=${pageToFetch}`;
 
     try {
-      // 'no-store' é importante para busca, para NUNCA usar cache
       const res = await fetch(url, { cache: 'no-store' });
       if (!res.ok) {
         throw new Error('Falha ao buscar resultados da busca');
       }
       
       const data: TmdbApiResponse = await res.json();
-      // Atualizamos o estado com os resultados
-      set({ searchResults: data.results });
+      
+      set((state) => ({
+        searchResults: loadMore
+          ? [...state.searchResults, ...data.results] 
+          : data.results,
+        currentPage: data.page,
+        totalPages: data.total_pages,
+      }));
 
     } catch (error) {
-      console.error(error);
-      set({ searchResults: [] }); // Limpa em caso de erro
+      console.error("ERRO NO FETCH:", error);
+      set({ searchResults: [], currentPage: 1, totalPages: 1 });
     }
+  },
+
+  resetSearch: () => {
+    set({
+      searchQuery: '',
+      searchResults: [],
+      currentPage: 1,
+      totalPages: 1,
+    });
   },
 }));

@@ -1,6 +1,7 @@
 import { Movie, TmdbApiResponse } from "@/types";
 import { SearchBar } from '@/components/SearchBar';
 import { MovieList } from '@/components/MovieList';
+import { Logo } from '@/components/Logo';
 
 async function getPopularMovies(): Promise<Movie[]> {
   const apiKey = process.env.NEXT_PUBLIC_TMDB_API_KEY;
@@ -15,29 +16,26 @@ async function getPopularMovies(): Promise<Movie[]> {
 
     const data: TmdbApiResponse = await res.json();
     return data.results;
-    
+
   } catch (error) {
-    // Retorna um array vazio em caso de erro, sem poluir o log
-    return []; 
+    return [];
   }
 }
 
 
 export default async function Home() {
-  
+
   const popularMovies = await getPopularMovies();
 
   return (
     <main className="container mx-auto py-8 px-4">
       <section className="mb-8">
-        <h1 className="text-3xl md:text-5xl font-bold mb-4 text-center">
-          FilmFinder
-        </h1>
+        <Logo />        
         <p className="text-xl text-zinc-400 text-center mb-6">
           Explore milhões de filmes ao seu alcance.
         </p>
-        
-         <SearchBar/>
+
+        <SearchBar />
       </section>
 
       <MovieList initialMovies={popularMovies} />
