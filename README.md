@@ -2,7 +2,7 @@
 
 Um dashboard web moderno para descobrir e pesquisar filmes, construído com Next.js e consumindo a API do TMDB.
 
-[![Visitar o Site](https://img.shields.io/badge/Acessar%20Deploy-Vercel-black?style=for-the-badge&logo=vercel)](https://[COLE-O-LINK-DA-SUA-HOSPEDAGEM-VERCEL-AQUI].vercel.app/)
+[![Visitar o Site](https://img.shields.io/badge/Acessar%20Deploy-Vercel-black?style=for-the-badge&logo=vercel)](https://film-finder-nu.vercel.app/)
 
 ---
 
