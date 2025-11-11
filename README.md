@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎬 FilmFinder
 
-## Getting Started
+Um dashboard web moderno para descobrir e pesquisar filmes, construído com Next.js e consumindo a API do TMDB.
 
-First, run the development server:
+[![Visitar o Site](https://img.shields.io/badge/Acessar%20Deploy-Vercel-black?style=for-the-badge&logo=vercel)](https://[COLE-O-LINK-DA-SUA-HOSPEDAGEM-VERCEL-AQUI].vercel.app/)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📸 Screenshots
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Aqui está uma prévia da aplicação em funcionamento:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+**Página Home (Busca e Populares):**
+<img src=".github/screenshots/home-preview.png" alt="Preview da Página Home" width="80%">
 
-## Learn More
+**Página de Detalhes do Filme:**
+<img src=".github/screenshots/movie-details.png" alt="Preview da Página de Detalhes" width="80%">
 
-To learn more about Next.js, take a look at the following resources:
+---
+## ✨ Funcionalidades Principais
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+* **Busca com "Debounce":** Pesquisa de filmes em tempo real com um atraso de 500ms para otimizar as chamadas de API.
+* **Rotas Dinâmicas:** Páginas de detalhes geradas dinamicamente para cada filme (`/movie/[id]`).
+* **Paginação "Carregar Mais":** Carregamento de resultados de busca adicionais sem recarregar a página.
+* **Gerenciamento de Estado Global:** O estado da busca é gerenciado centralmente com o Zustand.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🛠️ Stack de Tecnologias
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+O foco deste projeto foi construir uma aplicação de página única (SPA) reativa e performática, utilizando um stack moderno:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+* **Framework:** [Next.js](https://nextjs.org/) (com App Router)
+* **Linguagem:** [TypeScript](https://www.typescriptlang.org/)
+* **Estilização:** [TailwindCSS](https://tailwindcss.com/)
+* **Gerenciamento de Estado:** [Zustand](https://github.com/pmndrs/zustand) (para o estado global da busca)
+* **Debounce:** [use-debounce](https://github.com/xnimorz/use-debounce) (para otimização da busca)
+* **API:** [TMDB (The Movie Database)](https://www.themoviedb.org/documentation/api)
+
+---
+
+## 🚀 Rodando Localmente
+
+1.  **Clone o repositório:**
+    ```bash
+    git clone [https://github.com/ggsilva10/film-finder.git](https://github.com/ggsilva10/film-finder.git)
+    cd film-finder
+    ```
+
+2.  **Instale as dependências:**
+    ```bash
+    npm install
+    ```
+
+3.  **Configure as Variáveis de Ambiente:**
+    * Crie um arquivo `.env.local` na raiz.
+    * Adicione sua chave da API do TMDB:
+        ```env
+        NEXT_PUBLIC_TMDB_API_KEY=sua_chave_v3_aqui
+        ```
+
+4.  **Rode o servidor de desenvolvimento:**
+    ```bash
+    npm run dev
+    ```
+
+5.  Abra [http://localhost:3000](http://localhost:3000) no seu navegador.
